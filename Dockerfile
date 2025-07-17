@@ -4,6 +4,9 @@ FROM python:3.11-slim
 # Set working directory in container
 WORKDIR /app
 
+# Install dependencies
+RUN pip install fastapi uvicorn
+
 # Copy the server script
 COPY main.py .
 
@@ -28,4 +31,4 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
     CMD python -c "import socket; s = socket.socket(); s.settimeout(5); s.connect(('localhost', 8080)); s.close()" || exit 1
 
 # Run the server
-CMD ["python", "main.py"] 
+CMD ["python", "main.py"]
